@@ -6,7 +6,8 @@ const jwt = require('jsonwebtoken')
 const bcrypt=require('bcryptjs')
 const mongoose=require('mongoose')
 const ss=require('../models/model_ss')
-   
+
+//post request for signup
 app.post('/signup', async (req, res) => {
     try {        
         const user = await reg_model.create(req.body)
@@ -23,13 +24,14 @@ app.post('/signup', async (req, res) => {
         })
         }
 });
+//get request for signup data
 app.get('/signup_get',async (req, res) => {
     const data=await reg_model.find();
     res.status(201).json({
         data
     })
 })
-
+//post request for login
 app.post('/login', async (req,res)=>{
   const {email,password} = req.body
   if(!email || !password) res.send('please enter email and password')
@@ -51,12 +53,14 @@ app.post('/login', async (req,res)=>{
  }
 
  })
+//post request for slot selection
  app.post('/select_slot',async (req,res)=>{
     const sst=await ss.create(req.body)
     res.status(202).json({        
         customer_slot:sst        
     })        
 })
+//get request for display slot
 app.get('/display_slot',async (req,res)=>{
     const slots=await ss.find();
     res.json({
